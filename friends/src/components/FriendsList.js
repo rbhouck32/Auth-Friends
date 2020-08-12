@@ -85,23 +85,17 @@ const FriendsList = () => {
           <Button type="submit">Add Friend</Button>
         </FlexContainer>
       </form>
-      {isLoading && (
+
+      <FlexContainer>
         <Loader
-          type="Puff"
-          color="#00BFFF"
-          height={100}
-          width={100}
+          type="Bars"
+          color="#fabc16"
+          height={200}
+          width={200}
           timeout={1000} //3 secs
         />
-      )}
+      </FlexContainer>
 
-      <Loader
-        type="Puff"
-        color="#00BFFF"
-        height={100}
-        width={100}
-        timeout={1000} //3 secs
-      />
       <FlexCards>
         {friends.map((friend) => {
           return (
