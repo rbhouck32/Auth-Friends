@@ -3,6 +3,7 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { useForm } from "react-hook-form";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
+import styled from "styled-components";
 
 const FriendsList = () => {
   const [friends, setFriends] = useState([]);
@@ -41,50 +42,48 @@ const FriendsList = () => {
       });
   }, []);
 
-  const hideBtnHandler = () => {
-    const hideBtn = isLoading;
-    if (isLoading) {
-      return <div></div>;
-    }
-    return <button type="submit">Add Friend!</button>;
-  };
+  // const hideBtnHandler = () => {
+  //   const hideBtn = isLoading;
+  //   if (isLoading) {
+  //     return <div></div>;
+  //   }
+  //   return <Button type="submit">Add Friend!</Button>;
+  // };
 
   return (
-    <div>
-      <h1>Friends List!</h1>
+    <Container>
+      <Logo
+        src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Friends_logo.svg"
+        alt="friends-logo"
+      />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h2>Add another friend to your list</h2>
-        <div className="container">
-          <label htmlFor="name">Name: </label>
-          <input
+        <H2>Add another friend to your list</H2>
+        <FlexContainer>
+          <Label htmlFor="name">Name: </Label>
+          <Input
             name="name"
             type="text"
             placeholder="Enter Name Here"
             ref={register}
           />
-        </div>
-        <div className="container">
-          <label htmlFor="age">Age: </label>
-          <input
+
+          <Label htmlFor="age">Age: </Label>
+          <Input
             name="age"
             type="text"
             placeholder="Enter Age Here"
             ref={register}
           />
-        </div>
-        <div className="container">
-          <label htmlFor="email">Email Address: </label>
-          <input
+
+          <Label htmlFor="email">Email Address: </Label>
+          <Input
             name="email"
             type="text"
             placeholder="Enter Email Here"
             ref={register}
           />
-        </div>
-
-        <button onLoad={hideBtnHandler} type="submit">
-          Add Friend!
-        </button>
+          <Button type="submit">Add Friend</Button>
+        </FlexContainer>
       </form>
       {isLoading && (
         <Loader
@@ -103,21 +102,90 @@ const FriendsList = () => {
         width={100}
         timeout={1000} //3 secs
       />
-
-      {friends.map((friend) => {
-        return (
-          <div className="container" key={friend.id}>
-            <h3>{friend.name}</h3>
-            <p>{friend.email}</p>
-            <p>{friend.age}</p>
-            <button onClick={() => removeFriend(friend.id)}>
-              Remove Friend
-            </button>
-          </div>
-        );
-      })}
-    </div>
+      <FlexCards>
+        {friends.map((friend) => {
+          return (
+            <DataCard className="container" key={friend.id}>
+              <h3>{friend.name}</h3>
+              <p>{friend.email}</p>
+              <p>{friend.age}</p>
+              <CardBtn onClick={() => removeFriend(friend.id)}>
+                Remove Friend
+              </CardBtn>
+            </DataCard>
+          );
+        })}
+      </FlexCards>
+    </Container>
   );
 };
 
 export default FriendsList;
+
+const Logo = styled.img`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+`;
+
+const Button = styled.button`
+  padding: 0.5em;
+  background-color: papayawhip;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  color: crimson;
+  width: 100px;
+`;
+
+const CardBtn = styled(Button)`
+  width: 125px;
+`;
+
+const Input = styled.input`
+  margin-right: 1rem;
+  padding: 0.5em;
+  background: papayawhip;
+  color: crimson;
+  border-radius: 10px;
+  font-weight: bold;
+  &::-webkit-input-placeholder {
+    color: palevioletred;
+  }
+`;
+
+const Container = styled.div`
+  width: 100%;
+  height: 1000px;
+  background-color: #282c34;
+`;
+
+const FlexContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+`;
+
+const Label = styled.label`
+  font-weight: bold;
+  color: #fabc16;
+  margin-right: 5px;
+`;
+
+const H2 = styled.h2`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;
+  color: #fabc16;
+`;
+
+const DataCard = styled.div`
+  color: #fabc16;
+  margin: auto auto;
+`;
+
+const FlexCards = styled.div`
+  display: flex;
+`;

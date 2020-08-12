@@ -20,12 +20,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-decoration: none;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
 .App-link {
   color: #61dafb;
+}
+
+.App-Container {
+  width: 100%;
+  margin: 0 auto;
 }
 
 @keyframes App-logo-spin {

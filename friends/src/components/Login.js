@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-
 import axios from "axios";
+import styled from "styled-components";
 
 const Login = (props) => {
   const [credentials, setCredentials] = useState({
@@ -33,25 +33,72 @@ const Login = (props) => {
   };
 
   return (
-    <div>
-      <form onSubmit={login}>
-        <input
+    <Container>
+      <Logo
+        src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Friends_logo.svg"
+        alt="friends-logo"
+      />
+      <Form onSubmit={login}>
+        <Input
           type="text"
           name="username"
           value={credentials.username}
           onChange={handleChange}
+          placeholder="Name"
         />
 
-        <input
+        <Input
           type="password"
           name="password"
           value={credentials.password}
           onChange={handleChange}
+          placeholder="Password"
         />
-        <button>Log In</button>
-      </form>
-    </div>
+        <Button>Log In</Button>
+      </Form>
+    </Container>
   );
 };
 
 export default Login;
+
+const Container = styled.div`
+  width: 100%;
+  height: 1000px;
+  background-color: #282c34;
+`;
+
+const Logo = styled.img`
+  padding-top: 100px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+`;
+
+const Input = styled.input`
+  margin-right: 1rem;
+  padding: 0.5em;
+  background: papayawhip;
+  color: crimson;
+  border-radius: 10px;
+  font-weight: bold;
+  &::-webkit-input-placeholder {
+    color: palevioletred;
+  }
+`;
+
+const Button = styled.button`
+  padding: 0.5em;
+  background-color: papayawhip;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  color: crimson;
+  width: 100px;
+`;
+
+const Form = styled.form`
+  display: flex;
+  justify-content: center;
+`;
